@@ -100,18 +100,19 @@ label_colorbar = 'Density'
 color_scle_bool = False
 
 while True:
-    print(f'0  x_label: {x_label_str}')
-    print(f'1  y_label: {y_label_str}')
-    print(f'2  style of colorbar: {cmap}')
-    print(f'3  alpha: {alpha}')
-    print(f'4  the number of color in colorbar: {str(num_color_colorbar)}')
-    print(f'5  Whether to turn on coordinate scale: {str(coor_scle_bool)}')
-    print(f'6  dpi: {str(dpi)}')
-    print(f'7  style file: {', '.join(mplstyle)}')
-    print(f'8  the label of colorbar: {label_colorbar}')
-    print(f'9  Whether to display the color bar scale: {color_scle_bool}')
-    print(f'd  start to draw')
-    print(f'the range of values: ({min_value}, {max_value})')
+    print(f' 0  x_label: {x_label_str}')
+    print(f' 1  y_label: {y_label_str}')
+    print(f' 2  style of colorbar: {cmap}')
+    print(f' 3  alpha: {alpha}')
+    print(f' 4  the number of color in colorbar: {str(num_color_colorbar)}')
+    print(f' 5  Whether to turn on coordinate scale: {str(coor_scle_bool)}')
+    print(f' 6  dpi: {str(dpi)}')
+    print(f' 7  style file: {', '.join(mplstyle)}')
+    print(f' 8  the label of colorbar: {label_colorbar}')
+    print(f' 9  Whether to display the color bar scale: {color_scle_bool}')
+    print(f'10  the range of values: ({min_value}, {max_value})')
+    print(f' d  start to draw')
+    
     
     match input():
         case '0':
@@ -134,6 +135,14 @@ while True:
             label_colorbar = input('Please enter label of colorbar.\n')
         case '9':
             color_scle_bool = not color_scle_bool
+        case '10':
+            min_val_input = eval(input("Please enter the minimum value.\n"))
+            max_val_input = eval(input("Please enter the minimum value.\n"))
+            if max_val_input > min_val_input:
+                min_value = min_val_input
+                max_value = max_val_input
+            else:
+                print('Invalid range of values. Use default value.')
         case 'd':
             break
         case _:

@@ -12,18 +12,18 @@ Please enter the path to your xpm file
 ```
 随后，直接将需要绘图的`xpm`文件拉进软件，然后会出现以下的内容：
 ```
-0  x_label: x (nm)
-1  y_label: z (nm)
-2  style of colorbar: jet
-3  alpha: 1
-4  the number of color in colorbar: 100
-5  Whether to turn on coordinate scale: False
-6  dpi: 300
-7  style file: ./style/no-latex.mplstyle, ./style/my.mplstyle
-8  the label of colorbar: Density
-9  Whether to display the color bar scale: False
-d  start to draw
-the range of values: (0.0, 83.9)
+ 0  x_label: x (nm)
+ 1  y_label: z (nm)
+ 2  style of colorbar: jet
+ 3  alpha: 1
+ 4  the number of color in colorbar: 100
+ 5  Whether to turn on coordinate scale: False
+ 6  dpi: 300
+ 7  style file: ./style/no-latex.mplstyle, ./style/my.mplstyle
+ 8  the label of colorbar: Density
+ 9  Whether to display the color bar scale: False
+10  the range of values: (0, 1)
+ d  start to draw
 ```
 * 按`0`：修改图像的`x`轴坐标名称，默认值从`xpm`文件中读取
 * 按`1`：修改图像的`y`轴坐标名称，默认值从`xpm`文件中读取
@@ -35,8 +35,8 @@ the range of values: (0.0, 83.9)
 * 按`7`：设置作图格式文件路径，默认为`./style/no-latex.mplstyle`和`./style/my.mplstyle`
 * 按`8`：设置色彩条标签，默认为`Density`
 * 按`9`：是否显示色彩条刻度，默认不显示
+* 按`10`：设置色彩条的值域
 * 按`d`：开始作图
-此外，最后一行`the range of values: (0.0, 83.9)`显示色彩条的取值范围。
 
 #### 色彩条样式的修改
 色彩条样式可支持以下的样式。
@@ -58,6 +58,9 @@ the range of values: (0.0, 83.9)
   <div style="text-align:center;">
     <img src="./example/densmap_drawXPM.png" alt="图片无法显示" height="400px" width="600px" />
   </div>
+
+### 更新日志
+* [2024-Jul-16] 增加菜单中`10`选项，能够使用户自己选择色彩条值域。
 
 ### 鸣谢
 在开发`DrawXPM`的过程中，主要使用到了以下的Python开源模组
