@@ -23,6 +23,7 @@ Please enter the path to your xpm file
  8  the label of colorbar: Density
  9  Whether to display the color bar scale: False
 10  the range of values: (0, 1)
+11  Whether to transpose the data: False
  d  start to draw
 ```
 * 按`0`：修改图像的`x`轴坐标名称，默认值从`xpm`文件中读取
@@ -36,6 +37,7 @@ Please enter the path to your xpm file
 * 按`8`：设置色彩条标签，默认为`Density`
 * 按`9`：是否显示色彩条刻度，默认不显示
 * 按`10`：设置色彩条的值域
+* 按`11`: 是否考虑周期性边界条件对数据进行转换，默认不转换
 * 按`d`：开始作图
 
 #### 色彩条样式的修改
@@ -59,8 +61,27 @@ Please enter the path to your xpm file
     <img src="./example/densmap_drawXPM.png" alt="图片无法显示" height="400px" width="600px" />
   </div>
 
+### 关于选项`11`的说明
+若打开该选项，程序会对输入的数据进行下述的处理。
+<div style="text-align:center;">
+  <img src="./example/drawXPM.png" alt="图片无法显示" />
+</div>
+程序会在原始数据的基础上构造一个矩阵，并按照上图所示构造出一个大矩阵。最终输出的数据将是大矩阵中间部分的数据(即使用虚线框住的部分)。
+以下为对同一组数据不考虑周期性边界条件和考虑周期性边界条件进行了对比。
+
+* 不考虑周期性边界条件
+  <div style="text-align:center;">
+    <img src="./example/densmap_drawXPM.png" alt="图片无法显示" height="400px" width="600px" />
+  </div>
+
+* 考虑周期性边界条件
+  <div style="text-align:center;">
+    <img src="./example/PBC.png" alt="图片无法显示" height="400px" width="600px" />
+  </div>
+
 ### 更新日志
 * [2024-Jul-16] 增加菜单中`10`选项，能够使用户自己选择色彩条值域。
+* [2024-Jul-23] 考虑到分子动力学中的周期性边界，增加菜单中的`11`，使作图时能够考虑到这一特点。
 
 ### 鸣谢
 在开发`DrawXPM`的过程中，主要使用到了以下的Python开源模组

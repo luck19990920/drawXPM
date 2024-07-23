@@ -98,6 +98,7 @@ coor_scle_bool = False
 dpi = 300
 label_colorbar = 'Density'
 color_scle_bool = False
+trans_bool = False
 
 while True:
     print(f' 0  x_label: {x_label_str}')
@@ -111,6 +112,7 @@ while True:
     print(f' 8  the label of colorbar: {label_colorbar}')
     print(f' 9  Whether to display the color bar scale: {color_scle_bool}')
     print(f'10  the range of values: ({min_value}, {max_value})')
+    print(f'11  Whether to transpose the data: {trans_bool}')
     print(f' d  start to draw')
     
     
@@ -143,6 +145,8 @@ while True:
                 max_value = max_val_input
             else:
                 print('Invalid range of values. Use default value.')
+        case '11':
+            trans_bool = not trans_bool
         case 'd':
             break
         case _:
@@ -160,8 +164,41 @@ for path in mplstyle:
 plt.style.use(list(styles.keys()))
 
 X, Y = np.meshgrid(XPM_object.xvalues, XPM_object.yvalues)
-Z = XPM_object.array
-h = plt.contourf(X, Y, Z.transpose(), np.linspace(min_value, max_value, num_color_colorbar),cmap=cmap, alpha=alpha)
+Z = XPM_object.array.transpose()
+
+# 需要对数据进行翻转
+def trans(Z):
+    # 获得行与列最中间那一行或列的索引
+    if Z.shape[0] % 2 == 0:   # 行数为偶数
+        row_1 = int(Z.shape[0] / 2 - 1)
+        row_2 = int(Z.shape[0] / 2)
+    else:   # 行数为奇数
+        row_1 = int(Z.shape[0] / 2)
+        row_2 = int(Z.shape[0] / 2 + 1)
+
+    if Z.shape[1] % 2 == 0:   # 列数为偶数
+        col_1 = int(Z.shape[1] / 2 - 1)
+        col_2 = int(Z.shape[1] / 2)
+    else:   # 列数为奇数
+        col_1 = int(Z.shape[1] / 2)
+        col_2 = int(Z.shape[1] / 2 + 1)
+    
+    # 将矩阵分为4个部分
+    Z_00 = Z[:row_1+1, :col_1+1]
+    Z_01 = Z[:row_1+1, col_2:]
+    Z_10 = Z[row_2:, :col_1+1]
+    Z_11 = Z[row_2:, col_2:]
+
+    # 按照如下的方式进行组合
+    # Z_11 Z_10
+    # Z_01 Z_00
+    Z = np.vstack((np.hstack((Z_11, Z_10)), np.hstack((Z_01, Z_00))))
+    return Z
+
+if trans_bool:
+    Z = trans(Z)
+
+h = plt.contourf(X, Y, Z, np.linspace(min_value, max_value, num_color_colorbar),cmap=cmap, alpha=alpha)
 if coor_scle_bool:
     h.axes.set_xlabel(x_label_str)
     h.axes.set_ylabel(y_label_str)
